@@ -1,12 +1,13 @@
 
 services:
   mysql:
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: library_password
-      MYSQL_DATABASE: library_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user_password
+    image: mysql:8.4
+    env_file:
+      - .env
     ports:
       - "3307:3306"
-
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 1m
+      timeout: 30s
+      retries: 20

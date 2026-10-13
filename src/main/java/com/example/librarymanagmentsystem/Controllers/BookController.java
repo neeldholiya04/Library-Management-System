@@ -1,8 +1,8 @@
 package com.example.librarymanagmentsystem.Controllers;
 
 
-import com.example.librarymanagmentsystem.Models.bookModel.Book;
-import com.example.librarymanagmentsystem.Models.bookModel.Genre;
+import com.example.librarymanagmentsystem.models.bookModel.Book;
+import com.example.librarymanagmentsystem.models.bookModel.Genre;
 import com.example.librarymanagmentsystem.dtos.BookDTO;
 import com.example.librarymanagmentsystem.services.bookService.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
