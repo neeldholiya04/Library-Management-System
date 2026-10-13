@@ -1,0 +1,6 @@
+image:
+  repository: library-app
+  tag: dev
+
+ingress:
+  host: library.localhost

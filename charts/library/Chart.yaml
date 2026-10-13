@@ -1,0 +1,6 @@
+apiVersion: v2
+name: library
+description: Library Management System (Spring Boot API + MySQL)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
