@@ -1,5 +1,5 @@
 image:
-  tag: sha-c38ebf9
+  tag: sha-0f1820a
 ingress:
   host: library.localhost
 autoscaling:
