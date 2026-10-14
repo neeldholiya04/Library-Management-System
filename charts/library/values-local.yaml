@@ -1,5 +1,4 @@
 image:
-  tag: sha-53c7b25
-
+  tag: sha-e1e9687
 ingress:
   host: library.localhost
