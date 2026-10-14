@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/neeldholiya04/Library-Management-System.git
-    targetRevision: feat/advance-cloud-assignment   # would be main after merge
+    targetRevision: deploy/local
     path: charts/library
     helm:
       releaseName: library

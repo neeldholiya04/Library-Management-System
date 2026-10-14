@@ -129,3 +129,4 @@ jobs:
           git add charts/library/values-local.yaml
           git commit -m "deploy: library-app sha-${GITHUB_SHA::7} [skip ci]"
           git push origin HEAD:${{ github.ref_name }}
+          git push origin HEAD:deploy/local

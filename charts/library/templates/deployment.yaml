@@ -58,7 +58,7 @@ spec:
               path: /actuator/health/liveness
               port: management
             periodSeconds: 5
-            failureThreshold: 30
+            failureThreshold: 60
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
