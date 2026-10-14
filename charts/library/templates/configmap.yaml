@@ -11,3 +11,4 @@ data:
   DB_USERNAME: {{ .Values.db.username | quote }}
   MANAGEMENT_SERVER_PORT: "8081"
   LOGGING_STRUCTURED_FORMAT_CONSOLE: ecs
+  JAVA_TOOL_OPTIONS: "-XX:ActiveProcessorCount=2"

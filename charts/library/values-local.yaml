@@ -2,3 +2,5 @@ image:
   tag: sha-c38ebf9
 ingress:
   host: library.localhost
+autoscaling:
+  maxReplicas: 3
