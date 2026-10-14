@@ -37,6 +37,8 @@ spec:
       containers:
         - name: mysql
           image: {{ .Values.mysql.image }}
+          args:
+            - --performance-schema=OFF
           ports:
             - name: mysql
               containerPort: 3306

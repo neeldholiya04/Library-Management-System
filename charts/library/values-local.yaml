@@ -4,3 +4,8 @@ ingress:
   host: library.localhost
 autoscaling:
   maxReplicas: 3
+monitoring:
+  enabled: true
+tracing:
+  enabled: true
+  samplingProbability: "1.0"
