@@ -3,6 +3,7 @@ image:
 ingress:
   host: library.localhost
 autoscaling:
+  minReplicas: 1
   maxReplicas: 3
 monitoring:
   enabled: true

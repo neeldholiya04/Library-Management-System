@@ -58,19 +58,19 @@ spec:
                   name: {{ .Values.db.existingSecret }}
                   key: MYSQL_ROOT_PASSWORD
           startupProbe:
-            exec:
-              command: ["mysqladmin", "ping", "-h", "127.0.0.1"]
+            tcpSocket:
+              port: mysql
             periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 60
           readinessProbe:
-            exec:
-              command: ["mysqladmin", "ping", "-h", "127.0.0.1"]
+            tcpSocket:
+              port: mysql
             periodSeconds: 5
             timeoutSeconds: 5
           livenessProbe:
-            exec:
-              command: ["mysqladmin", "ping", "-h", "127.0.0.1"]
+            tcpSocket:
+              port: mysql
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 6

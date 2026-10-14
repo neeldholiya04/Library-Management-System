@@ -70,7 +70,8 @@ grafana:
       memory: 256Mi
   sidecar:
     dashboards:
-      searchNamespace: ALL
+      searchNamespace: library
+      resource: configmap
   additionalDataSources:
     - name: Loki
       type: loki
