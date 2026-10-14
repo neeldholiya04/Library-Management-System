@@ -13,3 +13,9 @@ resources:
   requests:
     cpu: 50m
     memory: 64Mi
+providers:
+  kubernetesIngress:
+    publishedService:
+      enabled: false
+    ingressEndpoint:
+      ip: 127.0.0.1
