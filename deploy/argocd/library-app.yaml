@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: library
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/neeldholiya04/Library-Management-System.git
+    targetRevision: feat/advance-cloud-assignment   # would be main after merge
+    path: charts/library
+    helm:
+      releaseName: library
+      valueFiles:
+        - values-local.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: library
+  syncPolicy:
+    automated:
+      prune: true      # delete resources removed from git
+      selfHeal: true   # undo manual changes made with kubectl (drift)

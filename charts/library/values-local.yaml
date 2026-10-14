@@ -1,6 +1,5 @@
 image:
-  repository: library-app
-  tag: dev
+  tag: sha-53c7b25
 
 ingress:
   host: library.localhost

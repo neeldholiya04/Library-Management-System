@@ -1,0 +1,9 @@
+dex:
+  enabled: false
+notifications:
+  enabled: false
+applicationSet:
+  replicas: 0              
+configs:
+  cm:
+    timeout.reconciliation: 60s 

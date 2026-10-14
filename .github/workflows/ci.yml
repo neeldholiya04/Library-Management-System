@@ -106,3 +106,26 @@ jobs:
       - name: Push image
         if: github.event_name == 'push'
         run: docker push ${{ env.IMAGE }}:sha-${{ steps.vars.outputs.sha }}
+  deploy:
+    name: Release (update GitOps manifest)
+    needs: image
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    environment: local          # pauses here until a reviewer approves
+    permissions:
+      contents: write           # only this job may push to the repo
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Point the chart at the new image
+        run: yq -i ".image.tag = \"sha-${GITHUB_SHA::7}\"" charts/library/values-local.yaml
+
+      - name: Commit and push the release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add charts/library/values-local.yaml
+          git commit -m "deploy: library-app sha-${GITHUB_SHA::7} [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
