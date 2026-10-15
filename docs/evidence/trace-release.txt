@@ -1,0 +1,9 @@
+deploy/local commit : 7d07395 deploy: library-app sha-608c03c [skip ci]
+image tag in git    : sha-608c03c
+source commit       : 608c03c Verification scripts: user journey through the Ingress, release traceability (commit, image, pod, actuator info), MySQL fault-and-recovery demo with alert tracking
+CI checks for commit: https://github.com/neeldholiya04/Library-Management-System/commit/608c03c/checks
+argo sync revision  : 7d07395 Synced/Healthy
+running pods        :
+  POD                          IMAGE                                           VERSION
+library-app-5d44ddbdbb-2vw76   ghcr.io/neeldholiya04/library-app:sha-608c03c   sha-608c03c
+/actuator/info      : {"app":{"version":"0.1.0","git-sha":"608c03c"}}

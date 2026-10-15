@@ -1,0 +1,22 @@
+$ kubectl -n library get pods,hpa,netpol
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/library-app-5d44ddbdbb-2vw76   1/1     Running   0          14m
+pod/library-mysql-0                1/1     Running   0          94s
+
+NAME                                              REFERENCE                TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/library-app   Deployment/library-app   cpu: 2%/70%   1         3         1          78m
+
+NAME                                                   POD-SELECTOR                                                            AGE
+networkpolicy.networking.k8s.io/library-app            app.kubernetes.io/instance=library,app.kubernetes.io/name=library-app   39m
+networkpolicy.networking.k8s.io/library-default-deny   <none>                                                                  39m
+networkpolicy.networking.k8s.io/library-mysql          app.kubernetes.io/instance=library,app.kubernetes.io/name=mysql         39m
+
+$ kubectl -n argocd get application library
+NAME      SYNC STATUS   HEALTH STATUS
+library   Synced        Healthy
+
+$ curl -s localhost:9090/api/v1/targets | grep -o "\"health\":\"[a-z]*\"" | sort | uniq -c
+      8 "health":"up"
+
+$ library app target
+serviceMonitor/library/library-app/0 up library-app-5d44ddbdbb-2vw76
