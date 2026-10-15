@@ -411,7 +411,7 @@
     {
       "id": 10,
       "type": "timeseries",
-      "title": "Pod CPU (cores)",
+      "title": "JVM process CPU by pod",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -424,7 +424,7 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "short"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -435,7 +435,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=\"library\", container!=\"\"}[2m]))",
+          "expr": "sum by (pod) (process_cpu_usage{namespace=\"library\"})",
           "legendFormat": "{{pod}}"
         }
       ]

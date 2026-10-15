@@ -5,6 +5,8 @@ image:
 
 replicaCount: 2
 
+jvmOptions: "-XX:ActiveProcessorCount=2"
+
 resources:
   requests:
     cpu: 250m

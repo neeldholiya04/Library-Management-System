@@ -2,6 +2,7 @@ image:
   tag: sha-a8fef02
 ingress:
   host: library.localhost
+jvmOptions: "-XX:ActiveProcessorCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC"
 autoscaling:
   minReplicas: 1
   maxReplicas: 3
