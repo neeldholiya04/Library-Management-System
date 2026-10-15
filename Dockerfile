@@ -18,7 +18,9 @@ ARG APP_VERSION=dev
 ENV GIT_SHA=${GIT_SHA} \
     APP_VERSION=${APP_VERSION}
 
-RUN groupadd --system --gid 10001 app && \
+RUN apt-get purge -y --auto-remove curl libcurl4t64 && \
+    rm -rf /var/lib/apt/lists/* && \
+    groupadd --system --gid 10001 app && \
     useradd --system --uid 10001 --gid app --no-create-home app
 
 WORKDIR /app
