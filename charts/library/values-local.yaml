@@ -1,5 +1,5 @@
 image:
-  tag: sha-a8fef02
+  tag: sha-dba7719
 ingress:
   host: library.localhost
 jvmOptions: "-XX:ActiveProcessorCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC"
