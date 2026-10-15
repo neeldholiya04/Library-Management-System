@@ -43,6 +43,11 @@ mysql:
     limits:
       memory: 640Mi
 
+networkPolicy:
+  enabled: true
+  ingressNamespace: traefik
+  monitoringNamespace: monitoring
+
 monitoring:
   enabled: false
 

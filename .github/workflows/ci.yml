@@ -58,6 +58,11 @@ jobs:
           curl -sSL https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-linux-amd64.tar.gz | tar xz kubeconform
           helm template library charts/library -n library -f charts/library/values-local.yaml \
             | ./kubeconform -strict -summary -schema-location default -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' -
+      - name: Scan chart misconfigurations (Trivy, fail on HIGH/CRITICAL)
+        run: |
+          docker run --rm -v "$PWD:/repo" aquasec/trivy:0.75.0 config \
+            --helm-values /repo/charts/library/values-local.yaml \
+            --severity CRITICAL,HIGH --exit-code 1 /repo/charts/library
 
   image:
     name: Build, scan, push image
