@@ -20,7 +20,7 @@ req POST /author "{\"name\":\"Author $RUN\"}"
 AUTHOR=$(field id)
 
 req POST /book "{\"title\":\"Book-$RUN\",\"authorId\":$AUTHOR,\"genre\":\"FICTION\",\"publicationDate\":\"2020-01-01\",\"isbn\":\"978-$RUN\"}"
-BOOK=$(field id)
+BOOK=$(field bookId)
 
 req GET "/book/title/Book-$RUN"
 

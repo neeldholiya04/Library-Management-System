@@ -2,7 +2,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-kind create cluster --config deploy/kind/cluster.yaml --wait 120s
+kind get clusters | grep -qx library-management-system || \
+  kind create cluster --config deploy/kind/cluster.yaml --wait 120s
 
 helm repo add traefik https://traefik.github.io/charts
 helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
@@ -14,12 +15,15 @@ helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
 
 pw() { openssl rand -hex 16; }
-kubectl create namespace library
-kubectl create namespace monitoring
-kubectl -n library create secret generic library-db \
-  --from-literal=MYSQL_PASSWORD="$(pw)" --from-literal=MYSQL_ROOT_PASSWORD="$(pw)"
-kubectl -n monitoring create secret generic grafana-admin \
-  --from-literal=admin-user=admin --from-literal=admin-password="$(pw)"
+for ns in library monitoring; do
+  kubectl create namespace "$ns" --dry-run=client -o yaml | kubectl apply -f -
+done
+kubectl -n library get secret library-db >/dev/null 2>&1 || \
+  kubectl -n library create secret generic library-db \
+    --from-literal=MYSQL_PASSWORD="$(pw)" --from-literal=MYSQL_ROOT_PASSWORD="$(pw)"
+kubectl -n monitoring get secret grafana-admin >/dev/null 2>&1 || \
+  kubectl -n monitoring create secret generic grafana-admin \
+    --from-literal=admin-user=admin --from-literal=admin-password="$(pw)"
 
 P=deploy/platform
 helm upgrade --install traefik traefik/traefik -n traefik --create-namespace \
