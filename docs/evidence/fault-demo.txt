@@ -1,0 +1,34 @@
+== baseline
+13:28:28  http=200  ready-endpoints=1  alerts=[]
+== pausing Argo auto-sync so self-heal does not undo the fault
+== fault: MySQL scaled to 0 for 180s
+13:28:29  http=500  ready-endpoints=1  alerts=[]
+13:28:49  http=000  ready-endpoints=0  alerts=[]
+13:29:05  http=503  ready-endpoints=0  alerts=[]
+13:29:21  http=503  ready-endpoints=0  alerts=[]
+13:29:37  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending ]
+13:29:53  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending ]
+13:30:08  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:30:24  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:30:39  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:30:55  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:31:11  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:31:26  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=pending LibraryDatabaseDown=pending LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+== recovery: re-enable auto-sync, Argo restores MySQL from git
+13:31:42  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=firing LibraryDatabaseDown=firing LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:31:53  http=503  ready-endpoints=0  alerts=[LibraryAppUnavailable=firing LibraryDatabaseDown=firing LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:32:04  http=200  ready-endpoints=1  alerts=[LibraryAppUnavailable=firing LibraryDatabaseDown=firing LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:32:05  http=200  ready-endpoints=1  alerts=[LibraryAppUnavailable=firing LibraryDatabaseDown=firing LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:32:20  http=200  ready-endpoints=1  alerts=[LibraryAppUnavailable=firing LibraryDatabaseDown=firing LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:32:36  http=200  ready-endpoints=1  alerts=[LibraryAppUnavailable=firing LibraryDatabaseDown=firing LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+13:32:51  http=200  ready-endpoints=1  alerts=[LibraryHighErrorRate=pending LibraryHighLatency=pending ]
+== post-recovery user journey
+POST   /author                              200
+POST   /book                                200
+GET    /book/title/Book-1792051387          200
+POST   /patron                              200
+POST   /lending                             200
+GET    /lending/patron/8                    200
+PUT    /lending/8                           200
+GET    /lending/8                           200
+journey ok: author=9 book=8 patron=8 lending=8

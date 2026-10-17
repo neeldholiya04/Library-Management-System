@@ -1,0 +1,28 @@
+dex:
+  enabled: false
+notifications:
+  enabled: false
+applicationSet:
+  replicas: 0              
+configs:
+  cm:
+    timeout.reconciliation: 60s
+    resource.inclusions: |
+      - apiGroups: [""]
+        kinds: [ConfigMap, Service, ServiceAccount, Pod, PersistentVolumeClaim]
+        clusters: ["*"]
+      - apiGroups: [apps]
+        kinds: [Deployment, ReplicaSet, StatefulSet]
+        clusters: ["*"]
+      - apiGroups: [autoscaling]
+        kinds: [HorizontalPodAutoscaler]
+        clusters: ["*"]
+      - apiGroups: [policy]
+        kinds: [PodDisruptionBudget]
+        clusters: ["*"]
+      - apiGroups: [networking.k8s.io]
+        kinds: [Ingress, NetworkPolicy]
+        clusters: ["*"]
+      - apiGroups: [monitoring.coreos.com]
+        kinds: [ServiceMonitor, PrometheusRule]
+        clusters: ["*"] 

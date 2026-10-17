@@ -6,9 +6,9 @@ import com.example.librarymanagmentsystem.dtos.BookDTO;
 import com.example.librarymanagmentsystem.exceptions.booksexception.AuthorNotFoundException;
 import com.example.librarymanagmentsystem.exceptions.booksexception.BookNotFoundException;
 import com.example.librarymanagmentsystem.exceptions.booksexception.GenreNotFoundException;
-import com.example.librarymanagmentsystem.Models.bookModel.Author;
-import com.example.librarymanagmentsystem.Models.bookModel.Book;
-import com.example.librarymanagmentsystem.Models.bookModel.Genre;
+import com.example.librarymanagmentsystem.models.bookModel.Author;
+import com.example.librarymanagmentsystem.models.bookModel.Book;
+import com.example.librarymanagmentsystem.models.bookModel.Genre;
 import com.example.librarymanagmentsystem.services.authorService.AuthorService;
 import org.springframework.stereotype.Service;
 

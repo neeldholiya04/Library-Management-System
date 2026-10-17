@@ -1,0 +1,56 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ .Release.Name }}-alerts
+  labels:
+    {{- include "library.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: library.slo
+      rules:
+        - record: library:http_requests:rate5m
+          expr: sum(rate(http_server_requests_seconds_count{namespace="{{ .Release.Namespace }}", uri!~"/actuator.*"}[5m]))
+        - record: library:http_errors:rate5m
+          expr: sum(rate(http_server_requests_seconds_count{namespace="{{ .Release.Namespace }}", uri!~"/actuator.*", status=~"5.."}[5m]))
+        - alert: LibraryHighErrorRate
+          expr: (library:http_errors:rate5m / library:http_requests:rate5m) > 0.05
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "More than 5% of requests are failing (5xx)"
+            description: "Error ratio is {{`{{ $value | humanizePercentage }}`}}. The 99% availability SLO budget is burning fast. Check app logs in Grafana (Loki) and recent releases in Argo CD."
+        - alert: LibraryHighLatency
+          expr: histogram_quantile(0.95, sum by (le) (rate(http_server_requests_seconds_bucket{namespace="{{ .Release.Namespace }}", uri!~"/actuator.*"}[5m]))) > 0.3
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "p95 latency above 300ms"
+            description: "p95 is {{`{{ $value | humanizeDuration }}`}}. Check DB pool usage and pod CPU on the Library dashboard; open a slow trace in Jaeger."
+        - alert: LibraryAppUnavailable
+          expr: kube_deployment_status_replicas_available{namespace="{{ .Release.Namespace }}", deployment="{{ .Release.Name }}-app"} < 1
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "No ready app pods"
+            description: "Users cannot reach the API. Check pod events and the last Argo CD sync; roll back deploy/local if a release caused it."
+        - alert: LibraryDatabaseDown
+          expr: kube_statefulset_status_replicas_ready{namespace="{{ .Release.Namespace }}", statefulset="{{ .Release.Name }}-mysql"} < 1
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "MySQL is not ready"
+            description: "App readiness depends on the DB, so pods will leave the Service. Check the mysql pod events and PVC."
+        - alert: LibraryPodRestarting
+          expr: increase(kube_pod_container_status_restarts_total{namespace="{{ .Release.Namespace }}"}[15m]) > 3
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod {{`{{ $labels.pod }}`}} restarted more than 3 times in 15m"
+            description: "Likely a probe failing or an OOM kill. Check: kubectl -n {{ .Release.Namespace }} describe pod {{`{{ $labels.pod }}`}}"
+{{- end }}
