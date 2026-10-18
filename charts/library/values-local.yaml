@@ -1,0 +1,13 @@
+image:
+  tag: sha-bb9c74f
+ingress:
+  host: library.localhost
+jvmOptions: "-XX:ActiveProcessorCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC"
+autoscaling:
+  minReplicas: 1
+  maxReplicas: 3
+monitoring:
+  enabled: true
+tracing:
+  enabled: true
+  samplingProbability: "1.0"

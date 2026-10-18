@@ -1,0 +1,23 @@
+# Accepted risks: reviewed 2026-10-13. Each entry expires so it must be re-reviewed.
+vulnerabilities:
+  # Spring Framework 6.2.x: no free patch exists (fixed only in 7.0.9 / Spring Boot 4).
+  - id: CVE-2026-47884
+    statement: "XsltView RCE. The app has no XSLT views (REST + JSON only), so the vulnerable code is never reached. Fix = Spring Boot 4 upgrade."
+    expired_at: 2026-12-31
+  - id: CVE-2026-47890
+    statement: "SSE stream corruption with views. The app uses no Server-Sent Events. Fix = Spring Boot 4 upgrade."
+    expired_at: 2026-12-31
+
+  # Go stdlib CVEs in Canonical's pebble binary shipped in the eclipse-temurin base image.
+  - id: CVE-2026-78667
+    paths: ["usr/bin/pebble"]
+    statement: "Bundled in the base image, never executed (ENTRYPOINT is java). Cleared when the base image is rebuilt."
+    expired_at: 2026-11-30
+  - id: CVE-2026-78669
+    paths: ["usr/bin/pebble"]
+    statement: "Same as above."
+    expired_at: 2026-11-30
+  - id: CVE-2026-97031
+    paths: ["usr/bin/pebble"]
+    statement: "Same as above."
+    expired_at: 2026-11-30

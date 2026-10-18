@@ -1,0 +1,9 @@
+POST   /author                              200
+POST   /book                                200
+GET    /book/title/Book-1792051085          200
+POST   /patron                              200
+POST   /lending                             200
+GET    /lending/patron/7                    200
+PUT    /lending/7                           200
+GET    /lending/7                           200
+journey ok: author=8 book=7 patron=7 lending=7
