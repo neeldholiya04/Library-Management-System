@@ -148,7 +148,7 @@ These happened during development and shaped the final configuration:
 
 ## 10. Screenshots
 
-Captured on 2026-10-18 against the running release `sha-769be07` (`deploy/local` at `7099d75`).
+The two CI screenshots show the pipeline run for `608c03c`, the tested version above. All other screenshots were captured on 2026-10-18 against the running release `sha-769be07` (`deploy/local` at `7099d75`).
 
 | Screenshot | Shows |
 |---|---|
@@ -167,7 +167,6 @@ Captured on 2026-10-18 against the running release `sha-769be07` (`deploy/local`
 | ![Alerts firing](evidence/screenshots/10-prometheus-alerts-firing.png) | `LibraryAppUnavailable` and `LibraryDatabaseDown` firing, with the rule expression, `for: 2m`, severity and runbook text |
 | ![Alertmanager](evidence/screenshots/11-alertmanager-alerts-firing.png) | The same two critical alerts received by Alertmanager |
 | ![Grafana recovery](evidence/screenshots/12-grafana-dashboard-after-recovery.png) | After recovery: the outage gap in the request rate and readiness, then traffic and readiness back |
-| ![Alerts resolved](evidence/screenshots/13-prometheus-alerts-resolved.png) | All five rules inactive again after recovery |
 
 ## Limitations of this evidence
 

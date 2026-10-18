@@ -11,7 +11,8 @@ RUN ./mvnw -B -q package -DskipTests
 
 # ---------- Runtime stage: only the JRE and the jar ----------
 FROM eclipse-temurin:21-jre
-LABEL org.opencontainers.image.source="https://github.com/neeldholiya04/Library-Management-System"
+LABEL org.opencontainers.image.source="https://github.com/neeldholiya04/Library-Management-System" \
+      org.opencontainers.image.description="Library Management System API (Spring Boot + MySQL)"
 
 ARG GIT_SHA=unknown
 ARG APP_VERSION=dev

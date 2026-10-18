@@ -7,8 +7,8 @@ services:
       - "3307:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p$$MYSQL_ROOT_PASSWORD"]
-      interval: 1m
-      timeout: 30s
+      interval: 5s
+      timeout: 3s
       retries: 20
 
   app:
